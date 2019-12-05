@@ -3,14 +3,17 @@ fun main(args: Array<String>) {
 
     var count = 0
     for (i in range[0]..range[1])
-        if (i > 100000 && hasExactlyDoubleDigit(i) && isNotDecreasing(i))
+        if (i > 100000 && hasDoubleDigit(i) && isNotDecreasing(i))
             count++
 
     println(count)
 }
 
-fun hasExactlyDoubleDigit(number: Int): Boolean {
-    return "$number".groupBy { it }.map { it.value.size }.contains(2)
+fun hasDoubleDigit(number: Int): Boolean {
+    for ((j, i) in (1 until "$number".length).withIndex()) {
+        if ("$number"[j] == "$number"[i]) return true
+    }
+    return false
 }
 
 fun isNotDecreasing(number: Int): Boolean {
