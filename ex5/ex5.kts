@@ -1,5 +1,5 @@
 fun main(args: Array<String>) {
-    val input = args[0].split(",").asSequence().map { it.toInt() }.toList()
+    val input = args[0].split(",").map { it.toInt() }.toList()
     compute(input.toMutableList(), 5)
 }
 
