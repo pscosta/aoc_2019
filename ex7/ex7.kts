@@ -1,5 +1,3 @@
-package com.sky.csi.exporter.mappers.converters;
-
 import com.google.common.collect.Collections2
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
