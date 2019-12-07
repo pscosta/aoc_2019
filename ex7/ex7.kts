@@ -25,11 +25,11 @@ class Prog {
         val ch5 = Channel<Int>(Int.MAX_VALUE).input(phases[4])
 
         var output: Int? = 0
-        GlobalScope.launch { compute(input.toMutableList(), ch1, ch2) }
-        GlobalScope.launch { compute(input.toMutableList(), ch2, ch3) }
-        GlobalScope.launch { compute(input.toMutableList(), ch3, ch4) }
-        GlobalScope.launch { compute(input.toMutableList(), ch4, ch5) }
-        GlobalScope.launch { output = compute(input.toMutableList(), ch5, ch1) }.join()
+        launch { compute(input.toMutableList(), ch1, ch2) }
+        launch { compute(input.toMutableList(), ch2, ch3) }
+        launch { compute(input.toMutableList(), ch3, ch4) }
+        launch { compute(input.toMutableList(), ch4, ch5) }
+        launch { output = compute(input.toMutableList(), ch5, ch1) }.join()
         return output!!
     }
 
