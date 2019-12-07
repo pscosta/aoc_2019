@@ -3,9 +3,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 
-suspend fun main() = Prog().main(arrayOf("input"))
+suspend fun main() = IntCode().main(arrayOf("input"))
 
-class Prog {
+class IntCode {
     suspend fun main(args: Array<String>) {
         val input = args[0].split(",").map { it.toInt() }.toList()
 
