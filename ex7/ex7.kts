@@ -1,4 +1,4 @@
-import com.google.common.collect.Collections2
+import com.google.common.collect.Collections2.permutations
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
@@ -9,13 +9,11 @@ class IntCode {
     suspend fun main(args: Array<String>) {
         val input = args[0].split(",").map { it.toInt() }.toList()
 
-        Collections2.permutations(listOf(5, 6, 7, 8, 9))
-                .map { execute(it, input) }
-                .max()
-                .also { println(it) }
+        permutations(listOf(0, 1, 2, 3, 4)).map { runSerial(it, input) }.max().also { println(it) }
+        permutations(listOf(5, 6, 7, 8, 9)).map { runFeedback(it, input) }.max().also { println(it) }
     }
 
-    suspend fun execute(phases: MutableList<Int>, input: List<Int>): Int {
+    suspend fun runFeedback(phases: MutableList<Int>, input: List<Int>): Int {
         val ch1 = Channel<Int>(Int.MAX_VALUE).input(phases[0]).input(0)
         val ch2 = Channel<Int>(Int.MAX_VALUE).input(phases[1])
         val ch3 = Channel<Int>(Int.MAX_VALUE).input(phases[2])
@@ -29,6 +27,20 @@ class IntCode {
         launch { compute(input.toMutableList(), ch4, ch5) }
         launch { output = compute(input.toMutableList(), ch5, ch1) }.join()
         return output!!
+    }
+
+    suspend fun runSerial(phases: MutableList<Int>, input: List<Int>): Int {
+        val ch1 = Channel<Int>(Int.MAX_VALUE).input(phases[0]).input(0)
+        val ch2 = Channel<Int>(Int.MAX_VALUE).input(phases[1])
+        val ch3 = Channel<Int>(Int.MAX_VALUE).input(phases[2])
+        val ch4 = Channel<Int>(Int.MAX_VALUE).input(phases[3])
+        val ch5 = Channel<Int>(Int.MAX_VALUE).input(phases[4])
+
+        compute(input.toMutableList(), ch1, ch2)
+        compute(input.toMutableList(), ch2, ch3)
+        compute(input.toMutableList(), ch3, ch4)
+        compute(input.toMutableList(), ch4, ch5)
+        return compute(input.toMutableList(), ch5, ch1)!!
     }
 
     data class Param(val value: Int, val mode: Char)
