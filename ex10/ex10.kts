@@ -48,6 +48,6 @@ class Day10 {
         println(count[count.keys.toList()[199]])
     }
 
-    fun angle(p1: Point, p2: Point) = atan2((p1.y - p2.y), (p1.x - p2.x)) // 
+    fun angle(p1: Point, p2: Point) = atan2((p1.y - p2.y), (p1.x - p2.x)) // calculate the angle to the base
     fun distance(p1: Point, p2: Point) = sqrt((p1.x - p2.x).pow(2) + (p1.y - p2.y).pow(2)) // euclidean distance
 }
