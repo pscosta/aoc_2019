@@ -4,9 +4,9 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.UNLIMITED
 import kotlinx.coroutines.launch
 
-suspend fun main() = IntCode().main(arrayOf("inout"))
+suspend fun main() = Arcade().main(arrayOf("input"))
 
-class IntCode {
+class Arcade {
     suspend fun main(args: Array<String>) {
         val mem = HashMap<Long, Long>()
         args[0].split(",").forEachIndexed { i, value -> mem[i.toLong()] = value.toLong() }
@@ -45,6 +45,8 @@ class IntCode {
         GlobalScope.launch { compute(mem, inCh, outCh) }.join()
         println(score)
     }
+    
+    // IntCode
 
     data class Param(val value: Long, val mode: Char)
     data class Instruction(val opcode: OP, val step: Int, val params: List<Param>)
