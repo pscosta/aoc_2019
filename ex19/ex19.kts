@@ -4,14 +4,15 @@ import kotlin.collections.mutableListOf as list
 
 fun main() {
     val mem = HashMap<Long, Long>()
-    "".split(",").forEachIndexed { i, value -> mem[i.toLong()] = value.toLong() }
+    "input".split(",").forEachIndexed { i, value -> mem[i.toLong()] = value.toLong() }
 
     val intCode = IntCode(mem)
     var count = 0
     for (y in 0L..49L)
         for (x in 0L..49L)
             if (intCode.compute(list(x, y)) == 1L) count += 1
-    println("$count")
+    
+    println("Part1: $count")
 
     mainloop@ for (y in 500L..1000L)
         for (x in 500L..1000L) {
@@ -19,7 +20,7 @@ fun main() {
             val p1 = intCode.compute(list(x + 99L, y))
             val p2 = intCode.compute(list(x, y + 99L))
             if (p1 == 1L && p2 == 1L) {
-                println("($x, $y) -> ${x * 10000 + y}")
+                println("Part 2: ($x, $y) -> ${x * 10000 + y}")
                 break@mainloop
             }
         }
