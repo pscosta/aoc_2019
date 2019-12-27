@@ -12,7 +12,7 @@ suspend fun main() {
     GlobalScope.launch { intCode.compute() }
 
     while (true) {
-        when (readLine(intCode)) {
+        when (parseLine(intCode)) {
             "Command?\n" -> readInput(intCode)
         }
     }
@@ -25,7 +25,7 @@ suspend fun readInput(intCode: IntCode) {
         intCode.inCh.send(c.toLong())
 }
 
-suspend fun readLine(intCode: IntCode): String {
+suspend fun parseLine(intCode: IntCode): String {
     var line = ""
     var nextChar = ' '
     while (nextChar != '\n') {
