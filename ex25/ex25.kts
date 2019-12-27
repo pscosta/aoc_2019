@@ -13,12 +13,12 @@ suspend fun main() {
 
     while (true) {
         when (parseLine(intCode)) {
-            "Command?\n" -> readInput(intCode)
+            "Command?\n" -> readConsoleInput(intCode)
         }
     }
 }
 
-suspend fun readInput(intCode: IntCode) {
+suspend fun readConsoleInput(intCode: IntCode) {
     var line = readLine()!!
     line += '\n'
     for (c in line.chars())
