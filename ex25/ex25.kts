@@ -32,7 +32,7 @@ suspend fun readLine(intCode: IntCode): String {
         nextChar = intCode.outCh.receive().toChar()
         line += nextChar
     }
-    println(line)
+    print(line)
     return line
 }
 
